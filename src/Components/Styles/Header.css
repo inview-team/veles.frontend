@@ -1,0 +1,57 @@
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f5f5f5; /* Лучше использовать нейтральный цвет фона */
+  border-bottom: 1px solid #ddd; /* Добавляем разделительную линию снизу */
+}
+
+.Logo {
+  width: 134px;
+  height: auto;
+}
+
+.Nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.Nav ul li:last-child {
+  margin-right: 0; /* Убираем отступ справа у последнего элемента */
+}
+
+.Nav ul li a {
+  text-decoration: none; /* Убираем подчеркивание ссылок */
+  color: #333; /* Цвет текста ссылок */
+  transition: color 0.3s; /* Плавное изменение цвета при наведении */
+}
+
+.Nav ul li a:hover {
+  color: #007bff; /* Цвет текста при наведении курсора */
+}
+
+.User-info p {
+  margin-right: 20px;
+}
+
+.LogoutButton {
+  border-radius: 5px;
+  border: 1px solid #dc3545; /* Красный цвет для границы */
+  background-color: #dc3545; /* Красный цвет для фона кнопки */
+  color: white; /* Белый цвет текста кнопки */
+  padding: 5px 10px; /* Добавляем отступы внутри кнопки */
+  cursor: pointer; /* Задаем курсор указывающий, чтобы пользователь понимал, что это кнопка */
+  transition: background-color 0.3s, color 0.3s; /* Плавное изменение цвета при наведении */
+}
+
+.LogoutButton:hover {
+  background-color: #c82333; /* Темно-красный цвет при наведении */
+  border-color: #bd2130; /* Темно-красный цвет границы при наведении */
+}
