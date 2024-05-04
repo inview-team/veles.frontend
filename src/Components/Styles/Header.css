@@ -1,57 +1,65 @@
-.Header {
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #f5f5f5; /* Лучше использовать нейтральный цвет фона */
-  border-bottom: 1px solid #ddd; /* Добавляем разделительную линию снизу */
+  justify-content: space-between; 
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+	background-color: white;
 }
 
-.Logo {
+.logo img {
   width: 134px;
   height: auto;
 }
 
-.Nav ul {
-  list-style-type: none;
+.menu ul {
+  list-style: none; 
+  padding: 0; 
   margin: 0;
-  padding: 0;
 }
 
-.Nav ul li {
+.menu ul li {
   display: inline;
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
-.Nav ul li:last-child {
-  margin-right: 0; /* Убираем отступ справа у последнего элемента */
+.menu ul li a {
+  text-decoration: none; 
+  color: black;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 100%;
+	font-weight: bold;
 }
 
-.Nav ul li a {
-  text-decoration: none; /* Убираем подчеркивание ссылок */
-  color: #333; /* Цвет текста ссылок */
-  transition: color 0.3s; /* Плавное изменение цвета при наведении */
+.user-info {
+  display: flex;
+  align-items: center;
 }
 
-.Nav ul li a:hover {
-  color: #007bff; /* Цвет текста при наведении курсора */
+.user-info p {
+  margin-right: 30px;
+	font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+	line-height: 100%;
 }
 
-.User-info p {
-  margin-right: 20px;
-}
-
-.LogoutButton {
+.login-button {
   border-radius: 5px;
-  border: 1px solid #dc3545; /* Красный цвет для границы */
-  background-color: #dc3545; /* Красный цвет для фона кнопки */
-  color: white; /* Белый цвет текста кнопки */
-  padding: 5px 10px; /* Добавляем отступы внутри кнопки */
-  cursor: pointer; /* Задаем курсор указывающий, чтобы пользователь понимал, что это кнопка */
-  transition: background-color 0.3s, color 0.3s; /* Плавное изменение цвета при наведении */
+  border: 1px solid #e30611; 
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+	line-height: 100%;
+	font-weight: bold;
+  padding: 10px 20px; 
+  cursor: pointer;
+	background-color: white;
+  transition: background-color 0.3s, color 0.3s;
+  min-width: 120px;
 }
 
-.LogoutButton:hover {
-  background-color: #c82333; /* Темно-красный цвет при наведении */
-  border-color: #bd2130; /* Темно-красный цвет границы при наведении */
+.login-button:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
 }

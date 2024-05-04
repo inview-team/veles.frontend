@@ -1,0 +1,170 @@
+
+.voice-chat-modal-container {
+  position: fixed;
+  bottom: 10%; /* 10% от высоты экрана */
+  right: 5%; /* 5% от ширины экрана */
+}
+
+/*Кнопка открыть*/
+.voice-chat-modal-container .open {
+  background-color:none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: fixed;
+  bottom: 2%; 
+  right: 5%; 
+  margin-top: 2%; /* 2% от высоты экрана */
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+/*Стили для иконки кнопки*/
+.voice-chat-modal-container .open img {
+  width: 64px; 
+  height: auto;
+  cursor: pointer;
+}
+
+/*Стили для окна модального*/
+.modal {
+  max-width: 600px;
+}
+
+/*Модальное окно*/
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px; /* Паддинг слева и справа 15px, сверху и снизу 20px */
+  background-color: white;
+  border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+}
+
+/*Кнопка закрыть мод.окно*/
+.modal-content .close {
+	position: absolute;
+  right: 20px;
+  top: 20px;
+  font-weight: bold;
+	background-color: white;
+	width: 50px;
+	height: 50px;
+	border: none;
+  padding: 0px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/*Заголовок*/
+.chat-header {
+  color: rgba(0, 0, 0, 1);
+  width: 600px;
+  margin-bottom: 30px;
+	margin-top: 20px;
+  font-family: Roboto;
+  text-align: center;
+  font-size: 32px;
+	padding: 0px 10px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+ /*Контейнер для чата */
+.user-bot-message-container {
+	width: 560px;
+  height: 538px;
+  overflow-y: auto; 
+  display: flex; 
+  flex-direction: column; 
+}
+
+ /*Контейнер для чата */
+.user-message-widget {
+  align-self: flex-end;
+	 /* Пользовательские сообщения выравниваются вправо */
+}
+
+.bot-message-widget {
+  align-self: flex-start; /* Сообщения от бота выравниваются влево */
+}
+
+
+.message-text {
+  background-color: rgba(228.70313107967377, 228.70313107967377, 228.70313107967377, 1);
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 1);
+  padding: 15px;
+  margin-bottom: 10px; 
+  font-family: Roboto, 'sans-serif';
+	font-size: 20px;
+	line-height: 145%;
+}
+
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 9px;
+}
+
+.input-container input {
+  flex: 1;
+  width: 430px;
+  padding: 15px;
+  background-color: #E5E5E5;
+  border: none; /* Убираем обводку */
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  line-height: 100%;
+  margin-right: 30px;
+}
+
+.voice {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+	width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.voice:hover {
+  background-color: transparent;
+}
+
+.start {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+  transition: transform 0.3s ease; 
+}
+
+.start:hover {
+  background-color: transparent;
+  border: none; 
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.stop {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.stop:hover {
+  background-color: #e4745af7;
+  color: #ffffff;
+}

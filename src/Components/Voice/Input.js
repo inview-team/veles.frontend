@@ -1,18 +1,28 @@
 import React from "react"; 
+import '../Styles/VoiceChat.css';
 
 const InputComponent = ({ userInput, handleUserInput, sendMessage }) => {
+  // обрабатываем нажатие enter
+  const handleKeyPress = (event) => {
+    // Проверка нажатия enter 
+    if (event.key === 'Enter') {
+      sendMessage(); // вызов функции отправки сообщений
+    }
+  };
+
   return (
-    <div className="input-container"> {/* Контейнер для ввода сообщения */}
+    <>
       <input
-        id="userInput" // Уникальный идентификатор для элемента ввода
-        type="text" // Тип поля ввода текста
+        id="userInput"
+        type="text"
         placeholder="Введите сообщение"
-        value={userInput} // Значение поля, связ с состоянием
-        onChange={handleUserInput} // Обработчик изменения текста в инпуте
+        value={userInput}
+        onChange={handleUserInput}
+        onKeyPress={handleKeyPress} // обработчик кнопки enter
       />
-      <button onClick={sendMessage}>Отправить</button>
-    </div>
+    </>
   );
 };
 
-export default InputComponent; 
+export default InputComponent;
+

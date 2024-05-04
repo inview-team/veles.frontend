@@ -1,80 +1,52 @@
 import React, { useState, useEffect } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import ModalComponent from "./Modal";
-import ChatComponent from "./Chat";
-import InputComponent from "./Input";
-import VoiceInputComponent from "./VoiceInput";
-import MessageWidgetComponent from "./MessageWidget";
-import "./VoiceChat.css";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition"; // Библиотека распознавания речи
+import ModalComponent from "./Modal"; // Компонент модального окна
+import ChatComponent from "./Chat"; // Компонент чата
+import InputComponent from "./Input"; // Компонент ввода текста
+import VoiceInputComponent from "./VoiceInput"; // Компонент голосового ввода
+import MessageWidgetComponent from "./MessageWidget"; // Компонент виджета сообщения
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Иконка
+import { faCommentDots } from "@fortawesome/free-solid-svg-icons"; // Иконка
+import '../Styles/VoiceChat.css'; // 
+import { sendToServer } from "../api/api"; // Функция, для отправки на сервер
 
 const VoiceChatModal = () => {
-	// Хуки компонентов/состояния
-  const [showModal, setShowModal] = useState(false); // Модальное окно
-  const [userInput, setUserInput] = useState(""); // Хранение введенного текста (пользователь)
-  const [botResponse, setBotResponse] = useState(""); // Хранение введенного текста (бот)
-  const [messages, setMessages] = useState([]);
+  // Хуки состояния компонента
+  const [showModal, setShowModal] = useState(false); // Состояние для отображения/скрытия модального окна
+  const [userInput, setUserInput] = useState(""); // Состояние для введенного текста пользователем
+  const [botResponse, setBotResponse] = useState(""); // Состояние для ответа бота
+  const [messages, setMessages] = useState([]); // Состояние для хранения сообщений чата
   const { transcript, resetTranscript, listening, finalTranscript } = useSpeechRecognition();
-  
-	//Распознавание речи завершено, получен текст, отправляем в чат
+
+  // Эффект для отправки сообщений на сервер при завершении распознавания речи
   useEffect(() => {
     if (!listening && finalTranscript !== "") {
       sendMessage(finalTranscript);
     }
   }, [finalTranscript, listening]);
-  
-	//Открытие/закрытие модального окна
+
+  // Переключение модального окна
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
-	// Обновление состояния юсеринпута при вводе текста пользователем
+  // Функция для обновления состояния пользовательского ввода
   const handleUserInput = (event) => {
     setUserInput(event.target.value);
   };
 
+  // Функция для отправки сообщения на сервер
   const sendMessage = (messageToSend) => {
-		// проверяем, не пустое ли сообщение
     if (messageToSend.trim() !== "") {
-			// добавляем сообщение пользователя в массив сообщений
       setMessages([...messages, { text: messageToSend, sender: "user" }]);
-			// очищаем поле ввода
       setUserInput("");
-			// отправляем сообщение на сервис для обработки ботом
-      sendToServer(messageToSend);
+      sendToServer(messageToSend, setMessages, resetTranscript, finalTranscript, setBotResponse);
     } else {
       document.getElementById("userInput").style.borderColor = "red";
     }
   };
 
-	//Данные на сервер
-  const sendToServer = (messageToSend) => {
-    fetch("/api/bot", {
-      method: "POST",
-      body: JSON.stringify({ message: messageToSend }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-				// Сбрасываем состояние распознанной речи
-        resetTranscript();
-				// Устанавливаем ответ бота в состояние
-        setBotResponse(data.response);
-				// Добавляем ответ бота в массив сообщений
-        setMessages([...messages, { text: data.response, sender: "bot" }]);
-				const message = new SpeechSynthesisUtterance(data.response);
-      window.speechSynthesis.speak(message);
-      })
-      .catch((error) => console.error("Error:", error));
-  };
-
-	// Начало и остановка записи голоса
+  // Начало/остановка записи речи
   const startVoiceInput = () => {
     if (!listening) {
       SpeechRecognition.startListening();
@@ -85,19 +57,27 @@ const VoiceChatModal = () => {
       }
     }
   };
-
+	
   return (
     <div className="voice-chat-modal-container">
-      <button onClick={toggleModal}>Открыть голосовой чат</button>
+      <button className="open" onClick={toggleModal}>
+        <FontAwesomeIcon icon={faCommentDots} style={{ color: "#000000", fontSize: "3em" }} />
+      </button>
       {showModal && (
         <ModalComponent onClose={toggleModal}>
+          <h2 className="chat-header">Vesel</h2>
           <ChatComponent messages={messages} />
-          <InputComponent
-            userInput={userInput}
-            handleUserInput={handleUserInput}
-            sendMessage={() => sendMessage(userInput)}
-          />
-          <VoiceInputComponent listening={listening} startVoiceInput={startVoiceInput} />
+          <div className="input-container">
+            <InputComponent
+              userInput={userInput}
+              handleUserInput={handleUserInput}
+              sendMessage={() => sendMessage(userInput)}
+            />
+            <VoiceInputComponent
+              listening={listening}
+              startVoiceInput={startVoiceInput}
+            />
+          </div>
         </ModalComponent>
       )}
     </div>

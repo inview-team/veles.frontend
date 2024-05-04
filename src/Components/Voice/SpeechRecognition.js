@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"; 
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import '../Styles/VoiceChat.css';
 
 const SpeechRecognitionComponent = ({ onSendMessage }) => {
   const { listening, finalTranscript } = useSpeechRecognition(); // Получаем состояние распознавания речи из хука 
@@ -19,7 +20,7 @@ const SpeechRecognitionComponent = ({ onSendMessage }) => {
   return (
     <div className="speech-recognition-container"> {/* Контейнер для компонента распознавания речи */}
       <button onClick={startVoiceInput}> {/* Кнопка для начала записи голоса */}
-        {listening ? "Остановить запись" : "Начать запись"} {/* Меняется текст (потом иконки), в зависимости от состояния */}
+        {listening ? "Остановить запись" : "Начать запись"} {/* Меняется иконка, в зависимости от состояния */}
       </button>
     </div>
   );
