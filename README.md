@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Frontend голосового ассистента Veles
+Голосовй ассистент Veles предназначен, для возможности исполнения банковских операций
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Вся разметка обозначена aria-атрибутами для возможности чтения screen-reader, что улучшает доступность для различных категорий пользователей
 
-## Available Scripts
+![Screen_service](img/screen.png)
 
-In the project directory, you can run:
+## Основная информация в src
+Components:
+- `img` - логотип МТС банка
+- `Pages` - Собранная страница приложения (Личный кабинет с голосовым ассистентом)
+- `Styles` - Стили (заголовка, голосового ассистента, личного кабинета)
+- `Voice` - Голосовой ассистент
+`.env` - URL всех API адресов
+
+
+## Основной файл функциональности голосового чата в VoiceChat.js
+Функции, которые используются:
+- Открытие/закрытие модального окна - запрос на сервер по websocket/установка сессии;
+- Ввод пользователя в input - отправка на сервер - отображение в чате;
+- Запись голоса - отправка на сервер - отображение в чате.
+- Ответы голосового ассистента (команды, просто сообщения, результат выполнения команды) отображаются исходя из ответов из запросов
+
+## Внешний вид и функциональность приложения
+Приложение с маршрутизацией в файле App.js
+/sign up Регистрация
+/ login Войти 
+/ Главная, только для авторизованных пользователей (с голосовым ассистентом)
+
+Это полнофункциональное приложение. Пользователи могут войти в систему, зарегистрироваться, сбросить пароль и просмотреть свою панель управления. Когда пользователь вошел в систему, он может просмотреть страницу личного кабинета. Если пользователь не авторизован, он будет перенаправлен на страницу входа.
+
+## Главный файл сборки frontend оболочки происходит в App.js
+- Запрос на сервер с получением и сверкой токена доступа;
+- Отображение главной страницы, аутентификациии, регистрации;
+- Маршрутизация по страницам. 
+
+
+
+Рендер главного файла App.js в react приложение происходит в index.js
+
+Запустить проект можно с помощью 
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -1,23 +1,23 @@
-import React from 'react';
-import './Styles/Header.css'; // Подключаем файл стилей для Header
-import logo from './img/logo.png'; // Импортируем изображение логотипа
+import React, { useState, useEffect } from 'react';
+import './Styles/Header.css';
+import logo from './img/logo.png';
 
-const Header = () => {
+
+const Header = ({ onLogout }) => {
   return (
-    <header className="header">
+    <header className="header" aria-label="Шапка сайта">
       <div className="logo">
-        <img src={logo} alt="Логотип МТС" aria-label="Логотип МТС" role="img" /> {/* Добавляем атрибуты aria-label и role */}
+        <img src={logo} alt="Логотип МТС, у нас появился голосовой ассистент" />
       </div>
       <nav className="menu" aria-label="Главное меню">
         <ul>
-          <li><a href="#" aria-label="Главная">Главная</a></li>
-          <li><a href="#" aria-label="Переводы и платежи">Переводы и платежи</a></li>
-          <li><a href="#" aria-label="О нас">О нас</a></li>
+          <li><a href="/dashboard" aria-label="Главная">Главная</a></li>
+          <li><a href="/dashboard" aria-label="Переводы и платежи">Переводы и платежи</a></li>
+          <li><a href="/dashboard" aria-label="Личный кабинет">Личный кабинет</a></li>
         </ul>
       </nav>
-      <div className="user-info">
-        <p>+7 123 456 7890</p>
-        <button className="login-button" aria-label="Войти">Войти</button>
+      <div className="user-info" aria-label="Пользовательская информация и кнопка выйти">
+        <button className ='logout' aria-label="Кнопка выйти" onClick={onLogout}>Выйти</button>
       </div>
     </header>
   );

@@ -32,24 +32,27 @@
 	font-weight: bold;
 }
 
+
+
 .user-info {
   display: flex;
   align-items: center;
+	margin-bottom: none;
 }
 
 .user-info p {
   margin-right: 30px;
 	font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 1em;
 	line-height: 100%;
 }
 
-.login-button {
+.logout {
   border-radius: 5px;
   border: 1px solid #e30611; 
   color: black;
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 1em;
 	line-height: 100%;
 	font-weight: bold;
   padding: 10px 20px; 
@@ -57,9 +60,10 @@
 	background-color: white;
   transition: background-color 0.3s, color 0.3s;
   min-width: 120px;
+	max-width: 100%;
 }
 
-.login-button:hover {
+.logout:hover {
   background-color: #c82333;
   border-color: #bd2130;
 }

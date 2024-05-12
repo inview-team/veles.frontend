@@ -1,12 +1,13 @@
-
 .voice-chat-modal-container {
   position: fixed;
-  bottom: 10%; /* 10% от высоты экрана */
-  right: 5%; /* 5% от ширины экрана */
+  bottom: 10%; 
+  right: 5%; 
+	max-width: 700px;
 }
 
 /*Кнопка открыть*/
 .voice-chat-modal-container .open {
+	font-size: 4em;
   background-color:none;
   border: none;
   border-radius: 5px;
@@ -15,22 +16,26 @@
   position: fixed;
   bottom: 2%; 
   right: 5%; 
-  margin-top: 2%; /* 2% от высоты экрана */
+  margin-top: 2%; 
   display: flex; 
   justify-content: center; 
   align-items: center;
 }
 
-/*Стили для иконки кнопки*/
-.voice-chat-modal-container .open img {
-  width: 64px; 
-  height: auto;
-  cursor: pointer;
-}
-
 /*Стили для окна модального*/
 .modal {
-  max-width: 600px;
+	background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  bottom: 2%; 
+  right: 5%; 
+  margin-top: 2%; 
+  justify-content: center; 
+  align-items: center;
+	margin-bottom: 20px;
 }
 
 /*Модальное окно*/
@@ -38,14 +43,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 15px; /* Паддинг слева и справа 15px, сверху и снизу 20px */
+  padding: 20px 15px; 
   background-color: white;
   border-radius: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /*Кнопка закрыть мод.окно*/
 .modal-content .close {
+	font-size: 3em;
 	position: absolute;
   right: 20px;
   top: 20px;
@@ -68,9 +74,6 @@
   font-family: Roboto;
   text-align: center;
   font-size: 32px;
-	padding: 0px 10px;
-	padding-right: 20px;
-	padding-left: 20px;
 }
 
  /*Контейнер для чата */
@@ -85,11 +88,10 @@
  /*Контейнер для чата */
 .user-message-widget {
   align-self: flex-end;
-	 /* Пользовательские сообщения выравниваются вправо */
 }
 
 .bot-message-widget {
-  align-self: flex-start; /* Сообщения от бота выравниваются влево */
+  align-self: flex-start;
 }
 
 
@@ -116,7 +118,7 @@
   width: 430px;
   padding: 15px;
   background-color: #E5E5E5;
-  border: none; /* Убираем обводку */
+  border: none;
   border-radius: 10px;
   font-size: 20px;
   font-family: 'Roboto', sans-serif;
@@ -167,4 +169,68 @@
 .stop:hover {
   background-color: #e4745af7;
   color: #ffffff;
+}
+
+.voice-icon {
+  font-size: 4em;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .voice-chat-modal-container {
+    max-width: 300px; 
+    bottom: 5%;
+    right: 2%;
+  }
+  
+	.voice-chat-modal-container .open {
+		font-size: 2em;;
+	}
+
+  .modal {
+    max-width: 300px; 
+    bottom: 5%;
+    right: 2%;
+  }
+
+  .modal-content {
+    padding: 10px; 
+  }
+
+	.modal-content .close {
+		font-size: 2em;
+	}
+
+  .chat-header {
+    width: 300px; 
+    font-size: 24px; 
+    margin-bottom: 20px;
+  }
+
+  .user-bot-message-container {
+    width: 280px; 
+    height: 300px; 
+  }
+
+  .input-container input {
+    width: 150px; 
+		font-size: 10px;
+  }
+	
+
+	.voice-icon {
+		font-size: 2em; 
+	}
+	
+
+  .voice {
+    width: 30px;
+    height: 30px;
+  }
+
+  .start, .stop {
+    width: 30px; 
+    height: 30px;
+    padding: 5px;
+  }
 }
