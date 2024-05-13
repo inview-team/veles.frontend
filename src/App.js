@@ -7,9 +7,12 @@ import Signup from "./Components/Pages/SignPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+	const BANK_API = process.env.REACT_APP_BANK_API;
+
 	const fetchUserData = async (accessToken) => {
 		try {
-			const response = await fetch('/api/user', {
+			const response = await fetch(BANK_API + '/api/v1/me', {
 				headers: {
 					'Authorization': `Bearer ${accessToken}`
 				}
@@ -34,7 +37,7 @@ function App() {
 
 	const refreshAccessToken = async () => {
     try {
-      const response = await fetch(process.env.REACT_APP_API_REFRESH_URL, {
+      const response = await fetch(BANK_API + '/api/v1/refresh', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

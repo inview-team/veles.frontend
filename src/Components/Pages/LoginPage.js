@@ -8,12 +8,13 @@ const LoginForm = ({ onLogin }) => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const loginUrl = process.env.REACT_APP_API_LOGIN_URL;
+	const BANK_API = process.env.REACT_APP_BANK_API + "/api/v1/login"; 
+
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(loginUrl, {
+      const response = await fetch(BANK_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,26 +45,32 @@ const LoginForm = ({ onLogin }) => {
   }
 
   return (
-    <div className="login-form">
-      <h2>Вход</h2>
-      <form onSubmit={handleLoginSubmit}>
-        <input
-          type="text"
-          placeholder="Логин"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Войти</button>
-      </form>
-      {error && <p className="error">{error}</p>}
-    </div>
-  );
+  <div className="login-form" aria-label="Вход форма">
+    <h2>Вход</h2>
+    <form onSubmit={handleLoginSubmit}>
+      <input
+        type="text"
+        placeholder="Логин"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        aria-label="Логин поле ввода"
+      />
+      <input
+        type="password"
+        placeholder="Пароль"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        aria-label="Пароль поле ввода"
+      />
+      <button type="submit" aria-label="Войти кнопка">Войти</button>
+    </form>
+    {error && (
+      <p className="error" aria-live="assertive">
+        {error}
+      </p>
+    )}
+  </div>
+);
 };
 
 export default LoginForm;

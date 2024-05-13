@@ -19,38 +19,41 @@ const VoiceChatModal = () => {
   const [mediaRecorder, setMediaRecorder] = useState(null); // Состояние для хранения MediaRecorder
   const accessToken = localStorage.getItem("accessToken");
   const [socket, setSocket] = useState(null);
-	const WS_URL = process.env.REACT_APP_WS_URL;
 
-	const connectWebSocket = useCallback(() => {
-    const socket = new WebSocket(WS_URL);
+	const ASSISTANT_WS = process.env.REACT_APP_ASSISTANT_WS;
 
-    socket.onopen = () => {
-      console.log("WebSocket connected");
-    };
-
-    socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, message]);
-    };
-
-    socket.onclose = () => {
-      console.log("WebSocket disconnected");
-    };
-
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    setSocket(socket);
-  }, [WS_URL]);
+  const connectWebSocket = useCallback(() => {
+		const socket = new WebSocket(ASSISTANT_WS);
+	
+		socket.onopen = () => {
+			console.log("WebSocket connected");
+		};
+	
+		socket.onmessage = (event) => {
+			const messageData = JSON.parse(event.data);
+			const botMessage = {
+				text: messageData.command,
+				sender: "bot",
+			};
+			setMessages((prevMessages) => [...prevMessages, botMessage]);
+		};
+	
+		socket.onclose = () => {
+			console.log("WebSocket disconnected");
+		};
+	
+		socket.onerror = (error) => {
+			console.error("WebSocket error:", error);
+		};
+	
+		setSocket(socket);
+	}, [ASSISTANT_WS]);
 
   const speakText = useCallback((text) => {
     const speechSynthesis = window.speechSynthesis;
     const speechText = new SpeechSynthesisUtterance(text);
     speechSynthesis.speak(speechText);
   }, []);
-
-
 
   // Функция для отправки сообщений на сервер
   const sendToServer = useCallback(
@@ -121,12 +124,13 @@ const VoiceChatModal = () => {
     async (blob) => {
       try {
         console.log("Sending audio to server...");
-        const audioUrl = process.env.REACT_APP_API_VOICE_URL;
+
+				const SST_API = process.env.REACT_APP_SST_API + "/api/v1/commands";; 
 
         const audioFormData = new FormData();
         audioFormData.append("file", blob, "audio.webm");
 
-        const audioResponse = await fetch(audioUrl, {
+        const audioResponse = await fetch(SST_API, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Request-Method": "GET",
@@ -237,12 +241,11 @@ const VoiceChatModal = () => {
   return (
     <div
       className="voice-chat-modal-container"
-      aria-label="Контейнер модального окна голосового чата"
     >
       <button
         className="open"
         onClick={toggleModal}
-        aria-label="Кнопка открыть чат"
+        aria-label="Открыть чат кнопка"
       >
         <FontAwesomeIcon
           icon={faCommentDots}
@@ -252,14 +255,14 @@ const VoiceChatModal = () => {
       {showModal && (
         <dialog
           className="modal"
-          aria-labelledby="Модальное окно голосового чата"
+          aria-labelledby="Голосовой чат модальное окно"
           open
         >
           <div className="modal-content">
             <button
               className="close"
               onClick={toggleModal}
-              aria-label="Кнопка закрыть чат"
+              aria-label="Закрыть чат кнопка"
             >
               <FontAwesomeIcon
                 icon={faXmark}
@@ -295,12 +298,12 @@ const VoiceChatModal = () => {
                 value={userInput}
                 onInput={handleUserInput}
                 onKeyPress={handleKeyPress}
-                aria-label="Введите сообщение"
+                aria-label="Введите сообщение поле ввода"
               />
               <button
                 className="voice"
                 onClick={startVoiceInput}
-                aria-label="Начать распознавание речи"
+                aria-label="Начать распознавание речи кнопка"
               >
                 <FontAwesomeIcon
                   icon={listening ? faCircleStop : faRecordVinyl}

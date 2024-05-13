@@ -6,13 +6,13 @@ import "./Styles/MainContent.css";
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
 
-	const userUrl = process.env.REACT_APP_API_USER_URL;
+	const BANK_API = process.env.REACT_APP_BANK_API + "/api/v1/me";
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await fetch(userUrl, {
+        const response = await fetch(BANK_API, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -27,7 +27,7 @@ const UserProfile = () => {
       }
     };
     fetchUserData();
-  }, [userUrl]);
+  }, [BANK_API]);
 
   return (
     <div className="user-profile" aria-label="Личный кабинет">
@@ -41,13 +41,13 @@ const UserProfile = () => {
         </p>
       </div>
       <h2>
-        Карты{" "}
+        Карты
         <FontAwesomeIcon icon={faWallet} style={{ color: "#000000" }} />
       </h2>
       <div className="financial-info">
         <div className="bank-cards" aria-label="Дебетовые карты">
           <h3>
-            Дебетовые карты{" "}
+            Дебетовые карты
             <FontAwesomeIcon icon={faChevronDown} style={{ color: "#000000" }} />
           </h3>
 					

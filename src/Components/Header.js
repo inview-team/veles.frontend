@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Styles/Header.css';
 import logo from './img/logo.png';
 
@@ -9,15 +9,15 @@ const Header = ({ onLogout }) => {
       <div className="logo">
         <img src={logo} alt="Логотип МТС, у нас появился голосовой ассистент" />
       </div>
-      <nav className="menu" aria-label="Главное меню">
+      <nav className="menu" aria-label="Главное меню ссылки">
         <ul>
-          <li><a href="/dashboard" aria-label="Главная">Главная</a></li>
-          <li><a href="/dashboard" aria-label="Переводы и платежи">Переводы и платежи</a></li>
-          <li><a href="/dashboard" aria-label="Личный кабинет">Личный кабинет</a></li>
+          <li><a href="/dashboard" aria-label="Главная ссылка">Главная</a></li>
+          <li><a href="/dashboard" aria-label="Переводы и платежи ссылка">Переводы и платежи</a></li>
+          <li><a href="/dashboard" aria-label="Личный кабинет ссылка">Личный кабинет</a></li>
         </ul>
       </nav>
-      <div className="user-info" aria-label="Пользовательская информация и кнопка выйти">
-        <button className ='logout' aria-label="Кнопка выйти" onClick={onLogout}>Выйти</button>
+      <div className="user-info">
+        <button className ='logout' aria-label="Выйти кнопка" onClick={onLogout}>Выйти</button>
       </div>
     </header>
   );
