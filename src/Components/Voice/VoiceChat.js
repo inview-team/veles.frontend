@@ -59,7 +59,7 @@ const VoiceChatModal = () => {
   const sendToServer = useCallback(
     async (messageToSend) => {
       try {
-        const audioUrl = process.env.REACT_APP_API_VOICE_URL;
+        const audioUrl = SST_URL + "/commands";
         const textData = { message: messageToSend };
         const textResponse = await fetch(audioUrl, {
           method: "POST",
