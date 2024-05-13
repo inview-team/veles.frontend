@@ -19,7 +19,8 @@ const VoiceChatModal = () => {
   const [mediaRecorder, setMediaRecorder] = useState(null); // Состояние для хранения MediaRecorder
   const accessToken = localStorage.getItem("accessToken");
   const [socket, setSocket] = useState(null);
-	const WS_URL = process.env.REACT_APP_WS_URL;
+	const WS_URL = "ws://" + process.env.REACT_APP_WS_URL;
+  const SST_URL = process.env.REACT_APP_SST_API + "/api/v1";
 
 	const connectWebSocket = useCallback(() => {
     const socket = new WebSocket(WS_URL);
@@ -56,7 +57,7 @@ const VoiceChatModal = () => {
   const sendToServer = useCallback(
     async (messageToSend) => {
       try {
-        const audioUrl = process.env.REACT_APP_API_VOICE_URL;
+        const audioUrl = SST_URL + "/commands";
         const textData = { message: messageToSend };
         const textResponse = await fetch(audioUrl, {
           method: "POST",
