@@ -33,27 +33,27 @@ function App() {
   }, []);
 
 	const refreshAccessToken = async () => {
-		try {
-			const response = await fetch('http://25.67.190.241:30004/api/v1/refresh', {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					refresh: "value"
-				})
-			});
-			if (!response.ok) {
-				throw new Error("Ошибка при обновлении токена доступа");
-			}
-			const { accessToken } = await response.json();
-			localStorage.setItem("accessToken", accessToken);
-			return accessToken;
-		} catch (error) {
-			console.error("Ошибка при обновлении токена доступа:", error);
-			throw error;
-		}
-	};
+    try {
+      const response = await fetch(process.env.REACT_APP_API_REFRESH_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          refresh: "value"
+        })
+      });
+      if (!response.ok) {
+        throw new Error("Ошибка при обновлении токена доступа");
+      }
+      const { accessToken } = await response.json();
+      localStorage.setItem("accessToken", accessToken);
+      return accessToken;
+    } catch (error) {
+      console.error("Ошибка при обновлении токена доступа:", error);
+      throw error;
+    }
+  };
 	
 
   // Функция для выхода из учетной записи
