@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -21,32 +21,57 @@ const VoiceChatModal = () => {
   const [socket, setSocket] = useState(null);
 
 	const ASSISTANT_WS = process.env.REACT_APP_ASSISTANT_WS;
+	const socketRef = useRef(null); 
 
-  const connectWebSocket = useCallback(() => {
-		const socket = new WebSocket(ASSISTANT_WS);
+	const connectWebSocket = useCallback(() => {
+		if (!socketRef.current) { 
+			const socket = new WebSocket(ASSISTANT_WS + "/ws");
 	
-		socket.onopen = () => {
-			console.log("WebSocket connected");
-		};
-	
-		socket.onmessage = (event) => {
-			const messageData = JSON.parse(event.data);
-			const botMessage = {
-				text: messageData.command,
-				sender: "bot",
+			socket.onopen = (event) => {
+				const accessToken = localStorage.getItem("accessToken");
+				const sessionId = localStorage.getItem("sessionId");
+				socket.send(JSON.stringify({
+					type: "init",
+					payload: {
+							session_id: sessionId,
+							token: accessToken
+					}
+			}));
+				console.log("WebSocket connected");
 			};
-			setMessages((prevMessages) => [...prevMessages, botMessage]);
-		};
 	
-		socket.onclose = () => {
-			console.log("WebSocket disconnected");
-		};
+			socket.onmessage = (event) => {
+				const messageData = JSON.parse(event.data);
+				if (messageData.message === "session started") {
+					// Extract the session_id from the message data
+					let session_id = messageData.data.session_id;
 	
-		socket.onerror = (error) => {
-			console.error("WebSocket error:", error);
+					// Log the session_id or handle it as needed
+					console.log("Session started with ID:", session_id);
+					localStorage.setItem("sessionId", session_id); // Сохраняем сессию в localStorage
+					// You can now use 'session_id' for further processing as needed
+			}
+		else {const botMessage = {
+			text: messageData.message,
+			sender: "bot",
 		};
+		setMessages((prevMessages) => [...prevMessages, botMessage]);}
+			};
 	
-		setSocket(socket);
+			socket.onclose = (event) => {
+				console.log("WebSocket disconnected");
+				console.log('Соединение WebSocket закрыто с кодом:', event.code);
+				console.log('Причина закрытия:', event.reason);
+			};
+	
+			socket.onerror = (error) => {
+				console.error("WebSocket error:", error);
+			};
+	
+			socketRef.current = socket; // Сохраняем сокет в useRef
+		}
+	
+		setSocket(socketRef.current);
 	}, [ASSISTANT_WS]);
 
   const speakText = useCallback((text) => {
@@ -110,6 +135,14 @@ const VoiceChatModal = () => {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+/*
+	const openModal = () => {
+		setShowModal(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};*/
 
   useEffect(() => {
     if (showModal) {
@@ -129,10 +162,12 @@ const VoiceChatModal = () => {
 
         const audioFormData = new FormData();
         audioFormData.append("file", blob, "audio.webm");
+				const sessionId = localStorage.getItem("sessionId");
 
         const audioResponse = await fetch(SST_API, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+						"session-id": sessionId,
             "Access-Control-Request-Method": "GET",
             Origin: "http://example.com/",
           },

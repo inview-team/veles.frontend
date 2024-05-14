@@ -34,7 +34,8 @@ const Signup = ({ onRegister }) => {
 			});
 			const data = await response.json();
 			if (response.ok) {
-				const { accessToken, refreshToken } = data;
+				const accessToken = data.access;
+				const refreshToken = data.refresh_token;
 				onRegister(accessToken, refreshToken);
 				localStorage.setItem("accessToken", accessToken);
 				document.cookie = `refreshToken=${refreshToken}; path=/;`;

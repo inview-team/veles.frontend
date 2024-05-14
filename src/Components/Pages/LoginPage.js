@@ -23,7 +23,8 @@ const LoginForm = ({ onLogin }) => {
       });
       const data = await response.json();
       if (response.ok) {
-				const { accessToken, refreshToken } = data;
+				const accessToken = data.access;
+				const refreshToken = data.refresh_token;
         onLogin(data.accessToken);
         localStorage.setItem("accessToken", accessToken);
 				document.cookie = `refreshToken=${refreshToken}; path=/;`;
