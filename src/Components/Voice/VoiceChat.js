@@ -52,7 +52,7 @@ const VoiceChatModal = () => {
 					// You can now use 'session_id' for further processing as needed
 			}
 		else {const botMessage = {
-			text: messageData.message,
+			text: messageData.text,
 			sender: "bot",
 		};
 		setMessages((prevMessages) => [...prevMessages, botMessage]);}
