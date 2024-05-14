@@ -59,9 +59,9 @@ const VoiceChatModal = () => {
   const sendToServer = useCallback(
     async (messageToSend) => {
       try {
-        const audioUrl = SST_URL + "/commands";
+        const SST_API = process.env.REACT_APP_SST_API + "/api/v1/commands";; 
         const textData = { message: messageToSend };
-        const textResponse = await fetch(audioUrl, {
+        const textResponse = await fetch(SST_API, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const VoiceChatModal = () => {
       try {
         console.log("Sending audio to server...");
 
-				const SST_API = process.env.REACT_APP_SST_API + "/api/v1/commands";; 
+				const SST_API = process.env.REACT_APP_SST_API + "/api/v1/commands"; 
 
         const audioFormData = new FormData();
         audioFormData.append("file", blob, "audio.webm");
